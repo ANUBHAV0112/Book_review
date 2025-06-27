@@ -7,3 +7,8 @@
 7. git remote add origin https://github.com/ANUBHAV0112/Book_review
 8. git branch -M main
 9. git push -u origin main
+
+to test
+
+1. python -m pytest tests/
+

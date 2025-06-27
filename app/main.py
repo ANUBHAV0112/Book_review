@@ -2,12 +2,10 @@ import time
 import json
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from uuid import UUID
 from typing import List
 from app import crud, models, schemas
 from .database import SessionLocal, engine, Base
 import fakeredis
-
 
 app = FastAPI(
     title="Book Review API",
@@ -64,7 +62,7 @@ def create_book(book: schemas.BookCreate, db: Session = Depends(get_db)):
     return new_book
 
 @app.put("/books/{book_id}", response_model=schemas.Book)
-def update_book(book_id: UUID, book_update: schemas.BookCreate, db: Session = Depends(get_db)):
+def update_book(book_id: str, book_update: schemas.BookCreate, db: Session = Depends(get_db)):
     updated_book = crud.update_book(db, book_id, book_update)
     if not updated_book:
         raise HTTPException(status_code=404, detail="Book not found")
@@ -72,7 +70,7 @@ def update_book(book_id: UUID, book_update: schemas.BookCreate, db: Session = De
     return updated_book
 
 @app.delete("/books/{book_id}", response_model=schemas.Book)
-def delete_book(book_id: UUID, db: Session = Depends(get_db)):
+def delete_book(book_id: str, db: Session = Depends(get_db)):
     deleted_book = crud.delete_book(db, book_id)
     if not deleted_book:
         raise HTTPException(status_code=404, detail="Book not found")
@@ -80,7 +78,7 @@ def delete_book(book_id: UUID, db: Session = Depends(get_db)):
     return deleted_book
 
 @app.get("/books/{book_id}", response_model=schemas.Book)
-def get_book(book_id: UUID, db: Session = Depends(get_db)):
+def get_book(book_id: str, db: Session = Depends(get_db)):
     book = crud.get_book(db, book_id)
     if not book:
         raise HTTPException(status_code=404, detail="Book not found")
@@ -91,12 +89,12 @@ def get_book(book_id: UUID, db: Session = Depends(get_db)):
 # ----------------------------
 
 @app.post("/books/{book_id}/reviews", response_model=schemas.Review)
-def add_review(book_id: UUID, review: schemas.ReviewCreate, db: Session = Depends(get_db)):
+def add_review(book_id: str, review: schemas.ReviewCreate, db: Session = Depends(get_db)):
     book = crud.get_book(db, book_id)
     if not book:
         raise HTTPException(status_code=404, detail="Book not found")
     return crud.add_review(db, book_id, review)
 
 @app.get("/books/{book_id}/reviews", response_model=List[schemas.Review])
-def get_reviews(book_id: UUID, db: Session = Depends(get_db)):
+def get_reviews(book_id: str, db: Session = Depends(get_db)):
     return crud.get_reviews(db, book_id)
