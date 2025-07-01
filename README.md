@@ -96,8 +96,11 @@ Use Postman to test CRUD operations.
 
 Confirm data in MySQL Workbench.
 
-👨‍💻 Author
+---
+
+👨‍💻 Author :
 Anubhav Choudhary
 
-LinkedIn | GitHub
+[LinkedIn](https://www.linkedin.com/in/anubhav-choudhary-35b8ab254/) | [GitHub](https://github.com/ANUBHAV0112)
 
+---
