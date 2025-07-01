@@ -99,7 +99,7 @@ Confirm data in MySQL Workbench.
 ---
 
 👨‍💻 Author :
-Anubhav Choudhary
+ Anubhav Choudhary
 
 [LinkedIn](https://www.linkedin.com/in/anubhav-choudhary-35b8ab254/) | [GitHub](https://github.com/ANUBHAV0112)
 
